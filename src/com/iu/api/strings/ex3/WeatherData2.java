@@ -1,7 +1,10 @@
 package com.iu.api.strings.ex3;
 
+import java.util.StringTokenizer;
+
 public class WeatherData2 {
    private String data;
+    
   
    public WeatherData2() {
       this.data ="SEOUL,12,맑음,60,Daegu,68,비,10,"
@@ -9,53 +12,68 @@ public class WeatherData2 {
    }
    //init
    //data를 파싱해서 각 data를 DTO에 대입하고 DTO들을 리턴
-   public WeatherDTO[] init() {
-      String [] result = data.split(",");
-      WeatherDTO [] dto = new WeatherDTO[result.length/4];
-      int k=0;
-//   for(int i=0; i<result.length;i++) {
+           public WeatherDTO [] init() {
+    	StringTokenizer st = new StringTokenizer(this.data,",");
+    	WeatherDTO [] wethers = new WeatherDTO[st.countTokens()/4];
+    	int i = 0;
+    	while(st.hasMoreTokens()) {
+    		WeatherDTO weatherDTO = new WeatherDTO();
+    		weatherDTO.setCity(st.nextToken());
+    		weatherDTO.setGion(Integer.parseInt(st.nextToken()));
+    		weatherDTO.setStatus(st.nextToken());
+    		weatherDTO.setMise(Integer.parseInt(st.nextToken()));
+    		wethers[i] = weatherDTO;
+    		i++;
+    	}
+		}
+			
+    }
+//   public WeatherDTO[] init() {
+//      String [] result = data.split(",");
+//      WeatherDTO [] dto = new WeatherDTO[result.length/4];
+//      int k=0;
+////   for(int i=0; i<result.length;i++) {
+////      WeatherDTO dto2 = new WeatherDTO();
+////      dto2.setCity(result[i]);
+////      dto2.setGion(result[++i]);
+////      dto2.setStatus(result[++i]);
+////      dto2.setMise(result[++i]);
+////      dto[k]=dto2;
+////      k++;
+////   }
+//     
+//     
+//     
+//     
+//     
 //      WeatherDTO dto2 = new WeatherDTO();
-//      dto2.setCity(result[i]);
-//      dto2.setGion(result[++i]);
-//      dto2.setStatus(result[++i]);
-//      dto2.setMise(result[++i]);
-//      dto[k]=dto2;
-//      k++;
+//      for(int i =0; i<result.length;i++) {
+//        
+//        
+//         if(i%4 == 0) {
+//            dto2.setCity(result[i]);
+//            dto[k]=dto2;
+//           
+//           
+//         }else if(i%4 == 1) {
+//            dto2.setGion(result[i]);
+//            dto[k]=dto2;
+//           
+//         }else if(i%4 == 2) {
+//            dto2.setStatus(result[i]);
+//            dto[k]=dto2;
+//         }else if(i%4 == 3) {
+//            dto2.setMise(result[i]);
+//            dto[k]=dto2;
+//            k++;
+//           
+      
+    }
+//        
+//        
+//     
+//      return dto;
 //   }
-     
-     
-     
-     
-     
-      WeatherDTO dto2 = new WeatherDTO();
-      for(int i =0; i<result.length;i++) {
-        
-        
-         if(i%4 == 0) {
-            dto2.setCity(result[i]);
-            dto[k]=dto2;
-           
-           
-         }else if(i%4 == 1) {
-            dto2.setGion(result[i]);
-            dto[k]=dto2;
-           
-         }else if(i%4 == 2) {
-            dto2.setStatus(result[i]);
-            dto[k]=dto2;
-         }else if(i%4 == 3) {
-            dto2.setMise(result[i]);
-            dto[k]=dto2;
-            k++;
-           
-         }
-        
-      }
-        
-        
-     
-      return dto;
-   }
-}
-
-
+//}
+//
+//
